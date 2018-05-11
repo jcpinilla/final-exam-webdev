@@ -7,7 +7,7 @@ export default class App extends Component {
 		this.state = {
 			buses: null,
 			selectedRoute: null
-		}
+		};
 	}
 
   componentWillMount() {
