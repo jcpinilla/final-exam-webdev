@@ -1,34 +1,43 @@
-import React, { Component } from 'react';
- 
-import Task from './Task.js';
- 
-// App component - represents the whole app
+import React, { Component } from "react";
+import Graph from "./Graph.js";
+
 export default class App extends Component {
-  getTasks() {
-    return [
-      { _id: 1, text: 'This is task 1' },
-      { _id: 2, text: 'This is task 2' },
-      { _id: 3, text: 'This is task 3' },
-    ];
+	constructor(props) {
+		super(props);
+		this.state = {
+			buses: null,
+			selectedRoute: null
+		}
+	}
+
+  componentWillMount() {
+    fetch("https://gist.githubusercontent.com/john-guerra/6a1716d792a20b029392501a5448479b/raw/e0cf741c90a756adeec848f245ec539e0d0cd629/sfNSchedule")
+  		.then(data => data.json())
+  		.then(json => this.handleData(json));
   }
- 
-  renderTasks() {
-    return this.getTasks().map((task) => (
-      <Task key={task._id} task={task} />
-    ));
+
+  handleData(busSchedule) {
+  	let selectedRoute = busSchedule.route[0];
+  	let buses = [];
+	  for (let bus of selectedRoute.tr) { 
+	    let route = bus.stop.filter((d) => d.content!=="--");
+	    route.forEach((d) => d.date = new Date(+d.epochTime));    
+	    buses.push(route);
+	  }
+	  this.setState({
+	  	buses,
+	  	selectedRoute
+	  });
   }
- 
+
+
   render() {
-    return (
-      <div className="container">
-        <header>
-          <h1>Todo List</h1>
-        </header>
- 
-        <ul>
-          {this.renderTasks()}
-        </ul>
-      </div>
+  	let buses = this.state.buses;
+  	let selectedRoute = this.state.selectedRoute;
+    return (buses !== null && selectedRoute !== null) ? (
+    	<Graph buses={buses} selectedRoute={selectedRoute} />
+    ) : (
+    	<div></div>
     );
   }
 }
