@@ -26,7 +26,7 @@ export default class App extends Component {
 	}
 
 	handleAgencyChange(agency) {
-		fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${agency.tag}`)
+		fetch(`//webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${agency.tag}`)
 			.then(data => data.json())
 			.then(json => {
 				let firstRouteInAgency = json.route[0];

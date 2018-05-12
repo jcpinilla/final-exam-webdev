@@ -16,7 +16,7 @@ export default class Routes extends Component {
 
 	update() {
 		let agencyTag = this.props.agency.tag;
-		fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${agencyTag}`)
+		fetch(`//webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${agencyTag}`)
 			.then(data => data.json())
 			.then(json => this.handleData(json.route));
 	}

@@ -15,7 +15,7 @@ export default class Agencies extends Component {
 	}
 
 	update() {
-		fetch("http://webservices.nextbus.com/service/publicJSONFeed?command=agencyList")
+		fetch("//webservices.nextbus.com/service/publicJSONFeed?command=agencyList")
 			.then(data => data.json())
 			.then(json => this.handleData(json.agency));
 	}

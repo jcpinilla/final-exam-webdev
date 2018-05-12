@@ -11,7 +11,7 @@ export default class TimeChart extends Component {
 	update(agencyTag, routeTag) {
 		console.log("agencyTag:" + agencyTag);
 		console.log("routeTag:" + routeTag);
-		fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=schedule&a=${agencyTag}&r=${routeTag}`)
+		fetch(`//webservices.nextbus.com/service/publicJSONFeed?command=schedule&a=${agencyTag}&r=${routeTag}`)
 			.then(data => data.json())
 			.then(json => this.handleData(json.route[0]));
 	}
