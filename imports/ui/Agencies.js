@@ -15,7 +15,11 @@ export default class Agencies extends Component {
 	}
 
 	update() {
-		fetch("//webservices.nextbus.com/service/publicJSONFeed?command=agencyList")
+		fetch("//webservices.nextbus.com/service/publicJSONFeed?command=agencyList", {
+			headers: {
+				"Access-Control-Allow-Headers": "*"
+			}
+		})
 			.then(data => data.json())
 			.then(json => this.handleData(json.agency));
 	}
