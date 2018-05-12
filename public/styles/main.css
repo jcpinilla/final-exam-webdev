@@ -1,0 +1,8 @@
+.agency-text,
+.route-text {
+	cursor: pointer;
+}
+
+.time-chart {
+	margin-top: 30px;
+}
