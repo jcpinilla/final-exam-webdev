@@ -10,14 +10,15 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-	"comments.insert"(agencyTag, routeTag, text) {
+	"comments.insert"(agency, route, text) {
 		let commentId = "" + (Comments.find({}).count() + 1);
 		let comment = {
 			_id: commentId,
 			author: Meteor.user().username,
 			text,
-			agencyTag,
-			routeTag
+			agency,
+			route,
+			createdAt: new Date()
 		};
 		Comments.insert(comment);
 	}

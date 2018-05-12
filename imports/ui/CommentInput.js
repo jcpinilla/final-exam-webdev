@@ -22,9 +22,9 @@ export default class CommentInput extends Component {
 		event.preventDefault();
 		let commentInput = this.state.commentInput;
 		if (commentInput === "") return;
-		let agencyTag = this.props.agencyTag;
-		let routeTag = this.props.routeTag;
-		Meteor.call("comments.insert", agencyTag, routeTag, commentInput, () => {
+		let agency = this.props.agency;
+		let route = this.props.route;
+		Meteor.call("comments.insert", agency, route, commentInput, () => {
 			this.setState({
 				commentInput: ""
 			});
@@ -33,6 +33,9 @@ export default class CommentInput extends Component {
 
 	render() {
 		let commentInput = this.state.commentInput;
+		if (!Meteor.userId()) {
+			return <div><em>Only logged in users can comment.</em></div>;
+		}
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<label>

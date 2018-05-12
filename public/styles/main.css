@@ -1,8 +1,22 @@
 .agency-text,
-.route-text {
+.route-text,
+.comment {
 	cursor: pointer;
 }
 
-.time-chart {
-	margin-top: 30px;
+.time-chart,
+.comments-comp {
+	margin-top: 40px;
+}
+
+.accounts-ui-wrapper {
+	font-size: 130%;
+}
+
+.only-logged-in {
+	margin-bottom: 15px;
+}
+
+.app {
+	margin: 10px 70px 100px;
 }

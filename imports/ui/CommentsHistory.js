@@ -3,16 +3,12 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 
 import Comment from "./Comment.js";
-import CommentInput from "./CommentInput.js";
 
 import { Comments } from "../api/comments.js";
 
-class CommentsComp extends Component {
+class CommentsHistory extends Component {
 	render() {
-		let agency = this.props.agency;
-		let route = this.props.route;
 		let comments = this.props.comments;
-		let user = this.props.user;
 		let commentsDisplay = <div></div>;
 		if (comments) {
 			if (comments.length !== 0) {
@@ -27,33 +23,20 @@ class CommentsComp extends Component {
 			}
 		}
 		return (
-			<div className="comments-comp">
-				<h3>Comments for this TimeTable:</h3>
-				{user !== null ?
-					<CommentInput
-						agency={agency}
-						route={route} />
-					:
-					<div className="only-logged-in"><em>Only logged in users can comment.</em></div>
-				}
+			<div>
+				<h1>Comments history:</h1>
 				{commentsDisplay}
 			</div>
 		);
 	}
 }
 
-export default withTracker(({agency, route}) => {
+export default withTracker(() => {
 	Meteor.subscribe("comments");
 
 	return {
-		comments: Comments.find({
-			$and: [
-				{
-					agency,
-					route
-				}
-			]
-		}).fetch(),
+		comments: Comments
+			.find({}, {sort: {createdAt: -1}}).fetch(),
 		user: Meteor.user()
 	};
-})(CommentsComp);
+})(CommentsHistory);
